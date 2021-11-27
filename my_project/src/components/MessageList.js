@@ -1,5 +1,6 @@
 import '../App.css';
 import React from "react";
+import {Card, TextField} from "@mui/material";
 
 class MessageList extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class MessageList extends React.Component {
                 author: '',
                 text: '',
             },
-            messagesHW2: []
+            messages: []
         };
         this.arr = [];
         this.fixedArr = [];
@@ -37,7 +38,7 @@ class MessageList extends React.Component {
             user.text = this.state.text;
             this.arr.push(user);
             this.fixedArr = this.arr.reverse();
-            this.setState({messagesHW2: this.fixedArr});
+            this.setState({messages: this.fixedArr});
             event.preventDefault();
         } else {
             alert('Оба поля должны быть заполнены перед отправкой!');
@@ -47,40 +48,45 @@ class MessageList extends React.Component {
 
     render() {
         return (
-            <form className={'block2'} onSubmit={this.handleSubmit}>
-                <label>
-                    Имя:
-                    <input className={'block2__input'}
-                           type="text"
-                           author={this.state.author}
-                           onChange={this.handleChange}
-                           placeholder="введите имя"
+            <form className={'block'} onSubmit={this.handleSubmit}>
+                <div className={'block__main'}>
+                    <span className={'block__span'}>Имя: </span>
+                    <TextField className={'block__input'}
+                               type="text"
+                               author={this.state.author}
+                               onChange={this.handleChange}
+                               placeholder="введите имя"
+                               variant="filled"
+                               size="small"
+                               autoFocus
                     />
-                    Текст:
-                    <input className={'block2__input'}
-                           type="text"
-                           text={this.state.text}
-                           onChange={this.handleChangeText}
-                           placeholder="введите текст"
+                    <span className={'block__span'}>Текст: </span>
+                    <TextField className={'block__input'}
+                               type="text"
+                               text={this.state.text}
+                               onChange={this.handleChangeText}
+                               placeholder="введите текст"
+                               variant="filled"
+                               size="small"
                     />
-                </label>
-                <input className={'block2__input_btn'}
-                       type="submit"
-                       value="Отправить"
-                />
-                <input className={'block2__input_btn'}
-                       type="reset"
-                       value="Очистить"
-                />
-                <div className={'block2__messageList'}>
-                    {this.state.messagesHW2.map((message, index) => {
+                    <input className={'block__input_btn'}
+                           type="submit"
+                           value="Отправить"
+                    />
+                    <input className={'block__input_btn'}
+                           type="reset"
+                           value="Очистить"
+                    />
+                </div>
+                <div className={'block__messageList'}>
+                    {this.state.messages.map((message, index) => {
                         return (
-                            <div className={'block2__message'} key={index}>
-                                <div className={'block2__text'}>
+                            <Card className={'block__message'} key={index} variant="outlined">
+                                <div className={'block__text'}>
                                     <h4>{message.text}</h4>
-                                    <p className={'block2__name'}>сообщение от {message.author}</p>
+                                    <p className={'block__name'}>сообщение от {message.author}</p>
                                 </div>
-                            </div>
+                            </Card>
                         )
                     })}
                 </div>
